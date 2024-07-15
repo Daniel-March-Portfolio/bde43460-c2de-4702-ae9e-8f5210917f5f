@@ -1,0 +1,33 @@
+services:
+  django:
+    restart: unless-stopped
+    build: .
+    ports:
+      - "8080:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+    entrypoint: sh runserver.sh 0.0.0.0:8000
+    links:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    restart: unless-stopped
+    image: "postgres:15"
+    hostname: "postgres"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DATABASE_USER}" ]
+      interval: 5s
+      retries: 10
+    volumes:
+      - ${VOLUMES_DIR}/postgres:/var/lib/postgresql/data
