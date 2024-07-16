@@ -3,7 +3,7 @@ from datetime import date
 from django.core.management.base import BaseCommand
 
 from Apartment.models import Apartment
-from Receipt.utils.calculate_receipt import calculate_receipt_for_apartment
+from Receipt.tasks import calculate_receipt_for_apartment_with_celery
 
 
 class Command(BaseCommand):
@@ -13,6 +13,8 @@ class Command(BaseCommand):
         current_date = date.today()
 
         for apartment in Apartment.objects.all():
-            calculate_receipt_for_apartment(
-                apartment_uuid=apartment.uuid, month=current_date.month-1, year=current_date.year
+            calculate_receipt_for_apartment_with_celery.delay(
+                apartment_uuid=apartment.uuid,
+                month=current_date.month - 1,
+                year=current_date.year
             )
