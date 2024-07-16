@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "Tariff",
+    "WaterMeter",
+    "Building",
+    "Receipt",
+    "Apartment",
 ]
 
 MIDDLEWARE = [
