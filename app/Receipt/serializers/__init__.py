@@ -1,0 +1,1 @@
+from Receipt.serializers.receipt_serializer import ReceiptSerializer
