@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "Building",
     "Receipt",
     "Apartment",
+    "Progress",
 ]
 
 MIDDLEWARE = [

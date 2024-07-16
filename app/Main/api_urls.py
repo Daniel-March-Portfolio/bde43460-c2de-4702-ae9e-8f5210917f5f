@@ -9,5 +9,6 @@ urlpatterns = [
     path('receipts/', include('Receipt.api_urls')),
     path('tariffs/', include('Tariff.api_urls')),
     path('water_meters/', include('WaterMeter.api_urls')),
+    path('progress/', include('Progress.api_urls')),
     path('run_receipts_calculating/', run_receipts_calculating),
 ]
