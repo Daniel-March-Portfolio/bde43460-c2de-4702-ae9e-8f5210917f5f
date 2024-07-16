@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django_filters',
     "Tariff",
     "WaterMeter",
     "Building",
@@ -132,6 +133,12 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'Main.custom_pagination.NoDomainLimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
